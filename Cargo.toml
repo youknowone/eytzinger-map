@@ -1,0 +1,14 @@
+[package]
+name = "eytzinger-map"
+description = "array/vec based map using eytzinger search algorithm"
+version = "0.1.0"
+homepage = "https://github.com/youknowone/eytzinger-map"
+documentation = "https://docs.rs/eytzinger-map"
+repository = "https://github.com/youknowone/eytzinger-map"
+authors = ["Jeong YunWon <jeong@youknowone.org>"]
+edition = "2018"
+license = "BSD-2-Clause"
+keywords = ["arraymap", "vecmap", "binary-search", "eytzinger"]
+
+[dependencies]
+"eytzinger" = "1"
