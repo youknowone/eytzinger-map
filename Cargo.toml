@@ -1,7 +1,7 @@
 [package]
 name = "eytzinger-map"
 description = "array/vec based map using eytzinger search algorithm"
-version = "0.1.0"
+version = "0.1.1"
 homepage = "https://github.com/youknowone/eytzinger-map"
 documentation = "https://docs.rs/eytzinger-map"
 repository = "https://github.com/youknowone/eytzinger-map"
