@@ -180,12 +180,20 @@ where
     where
         S: AsMutSlice,
     {
+        s.as_mut_slice().sort_unstable_by(|a, b| a.0.cmp(&b.0));
+        Self::from_sorted(s)
+    }
+
+    pub fn from_sorted(mut s: S) -> Self
+    where
+        S: AsSlice + AsMutSlice,
+    {
         s.as_mut_slice()
             .eytzingerize(&mut eytzinger::permutation::InplacePermutator);
         Self(s)
     }
 
-    pub fn from_sorted(s: S) -> Self
+    pub fn from_eytzingerized(s: S) -> Self
     where
         S: AsSlice,
     {
@@ -483,13 +491,17 @@ pub type EytzingerVecMap<K, V> = EytzingerMap<Vec<(K, V)>>;
 /// ```
 pub type EytzingerRefMap<'a, K, V> = EytzingerMap<&'a [(K, V)]>;
 
-impl<'a, K, V> EytzingerRefMap<'a, K, V> {
-    pub fn from_sorted_ref(s: &'a [(K, V)]) -> Self {
+impl<'a, K, V> EytzingerRefMap<'a, K, V>
+where
+    K: Ord,
+{
+    pub fn from_sorted_ref(s: &'a mut [(K, V)]) -> Self {
+        s.eytzingerize(&mut eytzinger::permutation::InplacePermutator);
         Self(s)
     }
 
     pub fn from_ref(s: &'a mut [(K, V)]) -> Self {
-        s.eytzingerize(&mut eytzinger::permutation::InplacePermutator);
-        Self(s)
+        s.sort_unstable_by(|a, b| a.0.cmp(&b.0));
+        Self::from_sorted_ref(s)
     }
 }
